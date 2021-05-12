@@ -1,0 +1,33 @@
+body {
+    background-color: #dd4545;
+    height: 100vh;
+    margin: 0;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 2em;
+}
+
+div#clock {
+    display: flex;
+    height: 100vh;
+    align-content: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+div#clock * {
+    align-self: center;
+}
+
+div#clock h1 {
+    margin: 0;
+}
+
+time#timer {
+    display: block;
+    font-size: 10em;
+}
+
+button {
+    font-size: 1em;
+}
