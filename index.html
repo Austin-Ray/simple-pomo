@@ -22,6 +22,9 @@
             const msInMin = 60000;
 
             function startTimer() {
+                // Stop any existing timers
+                resetTimer();
+
                 currTime = new Date();
                 endTime = new Date(currTime.getTime() + defaultMinutes * msInMin);
                 timer = setInterval(updateTimer, 500, endTime);
