@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <title>Simple Pomodoro</title>
+    </head>
+    <body>
+        <p>Simple Pomodoro</p>
+        <p>
+            <time id="timer">25:00</time>
+        </p>
+        <button onClick="startTimer()">Start</button>
+        <button onClick="resetTimer()">Reset</button>
+        <script>
+            var timer;
+            var currTime;
+            var endTime;
+            const defaultMinutes = 25;
+            const msInMin = 60000;
+
+            function startTimer() {
+                currTime = new Date();
+                endTime = new Date(currTime.getTime() + defaultMinutes * msInMin);
+                timer = setInterval(updateTimer, 500, endTime);
+            };
+
+            function resetTimer() {
+                window.clearInterval(timer);
+                document.getElementById("timer").innerHTML = "25:00";
+            };
+            
+            function updateTimer(endTime) {
+                currTime = new Date();
+                diff = endTime - currTime;
+
+                if (diff <= 0)
+                {
+                    playCompleteSound();
+                    resetTimer();
+                } else {
+                    updateTimeDisplay(diff);
+                }
+            }
+
+            function updateTimeDisplay(diff) {
+                displayDate = new Date(diff);
+                var minutes = displayDate.getMinutes();
+                var seconds = displayDate.getSeconds();
+                if (seconds < 10) {
+                    seconds = "0" + seconds;
+                }
+                document.getElementById("timer").innerHTML = minutes + ":" + seconds;
+            };
+
+            function playCompleteSound() {
+                new Audio("sounds/alarm.ogg").play()
+            }
+        </script>
+    </body>
+</html>
