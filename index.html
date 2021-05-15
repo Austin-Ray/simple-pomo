@@ -1,14 +1,19 @@
 <html>
     <head>
         <title>Simple Pomodoro</title>
+        <link rel="stylesheet" href="style.css" />
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
     </head>
     <body>
-        <p>Simple Pomodoro</p>
-        <p>
-            <time id="timer">25:00</time>
-        </p>
-        <button onClick="startTimer()">Start</button>
-        <button onClick="resetTimer()">Reset</button>
+        <div id="clock">
+            <h1 class="stroke">Simple Pomodoro</h1>
+            <time id="timer" class="stroke">25:00</time>
+            <div>
+                <button onClick="startTimer()">Start</button>
+                <button onClick="resetTimer()">Reset</button>
+            </div>
+        </div>
         <script>
             var timer;
             var currTime;
@@ -17,6 +22,9 @@
             const msInMin = 60000;
 
             function startTimer() {
+                // Stop any existing timers
+                resetTimer();
+
                 currTime = new Date();
                 endTime = new Date(currTime.getTime() + defaultMinutes * msInMin);
                 timer = setInterval(updateTimer, 500, endTime);
