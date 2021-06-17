@@ -10,23 +10,33 @@
             <h1 class="stroke">Simple Pomodoro</h1>
             <time id="timer" class="stroke">25:00</time>
             <div>
-                <button onClick="startTimer()">Start</button>
+                <button onClick="startPomo()">Start</button>
                 <button onClick="resetTimer()">Reset</button>
+                <button onClick="startBreak()">Take a break</button>
             </div>
         </div>
         <script>
             var timer;
             var currTime;
             var endTime;
-            const defaultMinutes = 25;
+            const pomoMinutes = 25;
+            const breakMinutes = 5;
             const msInMin = 60000;
 
-            function startTimer() {
+            function startPomo() {
+                startTimer(pomoMinutes);
+            };
+
+            function startBreak() {
+                startTimer(breakMinutes);
+            };
+
+            function startTimer(durationMinutes) {
                 // Stop any existing timers
                 resetTimer();
 
                 currTime = new Date();
-                endTime = new Date(currTime.getTime() + defaultMinutes * msInMin);
+                endTime = new Date(currTime.getTime() + durationMinutes * msInMin);
                 timer = setInterval(updateTimer, 500, endTime);
             };
 
