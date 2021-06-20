@@ -11,7 +11,7 @@
             <time id="timer" class="stroke">25:00</time>
             <div>
                 <button onClick="startPomo()">Start</button>
-                <button onClick="resetTimer()">Reset</button>
+                <button onClick="resetToPomodoro()">Reset</button>
                 <button onClick="startShortBreak()">Take short break</button>
                 <button onClick="startLongBreak()">Take long break</button>
             </div>
@@ -37,18 +37,22 @@
                 startTimer(longBreakMinutes);
             };
 
+            function resetToPomodoro() {
+                resetTimer(pomoMinutes);
+            };
+
             function startTimer(durationMinutes) {
                 // Stop any existing timers
-                resetTimer();
+                resetTimer(durationMinutes);
 
                 currTime = new Date();
                 endTime = new Date(currTime.getTime() + durationMinutes * msInMin);
                 timer = setInterval(updateTimer, 500, endTime);
             };
 
-            function resetTimer() {
+            function resetTimer(durationMinutes) {
                 window.clearInterval(timer);
-                document.getElementById("timer").innerHTML = "25:00";
+                document.getElementById("timer").innerHTML = durationMinutes + ":00";
             };
             
             function updateTimer(endTime) {
