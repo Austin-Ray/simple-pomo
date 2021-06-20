@@ -12,7 +12,8 @@
             <div>
                 <button onClick="startPomo()">Start</button>
                 <button onClick="resetTimer()">Reset</button>
-                <button onClick="startBreak()">Take a break</button>
+                <button onClick="startShortBreak()">Take short break</button>
+                <button onClick="startLongBreak()">Take long break</button>
             </div>
         </div>
         <script>
@@ -20,15 +21,20 @@
             var currTime;
             var endTime;
             const pomoMinutes = 25;
-            const breakMinutes = 5;
+            const shortBreakMinutes = 5;
+            const longBreakMinutes = 15;
             const msInMin = 60000;
 
             function startPomo() {
                 startTimer(pomoMinutes);
             };
 
-            function startBreak() {
-                startTimer(breakMinutes);
+            function startShortBreak() {
+                startTimer(shortBreakMinutes);
+            };
+
+            function startLongBreak() {
+                startTimer(longBreakMinutes);
             };
 
             function startTimer(durationMinutes) {
