@@ -29,5 +29,10 @@ time#timer {
 }
 
 button {
-    font-size: 1em;
+    vertical-align: middle;
+    font-size: 1.5rem;
+    margin: 0.25rem 0.125rem;
+    padding: 0.5rem 1.0rem;
+    border-radius: 0.3rem;
+    border: 1px solid transparent;
 }
