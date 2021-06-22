@@ -23,6 +23,17 @@ div#clock h1 {
     margin: 0;
 }
 
+div#stats {
+    margin-top: 0.5rem;
+    font-size: 1.5rem;
+}
+
+div#stats div {
+    display: inline-block;
+    margin-left: 0.75rem;
+    margin-right: 0.75rem;
+}
+
 time#timer {
     display: block;
     font-size: 10em;

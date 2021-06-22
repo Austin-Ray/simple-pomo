@@ -15,39 +15,53 @@
                 <button onClick="startShortBreak()">Take short break</button>
                 <button onClick="startLongBreak()">Take long break</button>
             </div>
+            <div id="stats">
+                <div>Pomodoros: <span id="pomoCount">0</span></div>
+                <div>Short breaks: <span id="shortCount">0</span></div>
+                <div>Long breaks: <span id="longCount">0</span></div>
+            </div>
         </div>
         <script>
             var timer;
             var currTime;
             var endTime;
+            var completedPomoCount = 0;
+            var completedShortBreakCount = 0;
+            var completedLongBreakCount = 0;
             const pomoMinutes = 25;
             const shortBreakMinutes = 5;
             const longBreakMinutes = 15;
             const msInMin = 60000;
 
+            const TimerType = {
+                POMO: 1,
+                SHORT_BREAK: 2,
+                LONG_BREAK: 3
+            };
+
             function startPomo() {
-                startTimer(pomoMinutes);
+                startTimer(pomoMinutes, TimerType.POMO);
             };
 
             function startShortBreak() {
-                startTimer(shortBreakMinutes);
+                startTimer(shortBreakMinutes, TimerType.SHORT_BREAK);
             };
 
             function startLongBreak() {
-                startTimer(longBreakMinutes);
+                startTimer(longBreakMinutes, TimerType.LONG_BREAK);
             };
 
             function resetToPomodoro() {
                 resetTimer(pomoMinutes);
             };
 
-            function startTimer(durationMinutes) {
+            function startTimer(durationMinutes, timerType) {
                 // Stop any existing timers
                 resetTimer(durationMinutes);
 
                 currTime = new Date();
                 endTime = new Date(currTime.getTime() + durationMinutes * msInMin);
-                timer = setInterval(updateTimer, 500, endTime);
+                timer = setInterval(updateTimer, 500, endTime, timerType);
             };
 
             function resetTimer(durationMinutes) {
@@ -55,18 +69,36 @@
                 document.getElementById("timer").innerHTML = durationMinutes + ":00";
             };
             
-            function updateTimer(endTime) {
+            function updateTimer(endTime, timerType) {
                 currTime = new Date();
                 diff = endTime - currTime;
 
                 if (diff <= 0)
                 {
                     playCompleteSound();
+                    updateStats(timerType);
                     resetToPomodoro();
                 } else {
                     updateTimeDisplay(diff);
                 }
             }
+
+            function updateStats(timerType) {
+                switch (timerType) {
+                    case TimerType.POMO:
+                        completedPomoCount += 1;
+                        document.getElementById("pomoCount").innerHTML = completedPomoCount;
+                        break;
+                    case TimerType.SHORT_BREAK:
+                        completedShortBreakCount += 1;
+                        document.getElementById("shortCount").innerHTML = completedShortBreakCount;
+                        break;
+                    case TimerType.LONG_BREAK:
+                        completedLongBreakCount += 1;
+                        document.getElementById("longCount").innerHTML = completedLongBreakCount;
+                        break;
+                }
+            };
 
             function updateTimeDisplay(diff) {
                 displayDate = new Date(diff);
